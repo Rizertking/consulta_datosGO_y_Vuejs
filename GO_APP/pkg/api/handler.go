@@ -13,7 +13,8 @@ import (
 
 // FetchStocksHandler es el manejador para el endpoint /stocks
 func FetchStocksHandler(c *gin.Context) {
-	response, err := fetchStocksData("")
+	nextPageKey := c.Query("next_page") // Obtén el parámetro de consulta 'next_page' de la URL
+	response, err := fetchStocksData(nextPageKey)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
